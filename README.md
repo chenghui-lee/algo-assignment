@@ -3,18 +3,20 @@
 ## Preparation
 Install latest version of Python 3 at https://www.python.org/downloads/ and Git at https://git-scm.com/download/win
 
-To clone this repository:
+You may use any python IDE to run, I recommend VS Code and PyCharm.
+
+### To clone this repository:
 ```
 git clone git@github.com:chenghui-lee/algo-assignment.git
 cd algo-assignment/
 ```
-(Optional, but recommended) Create new virtual enviroment:
+### (Optional, but recommended) Create new virtual enviroment:
 ```
 pip3 install virtualenv
 python -m virtualenv newEnvName
 newEnvName\Scripts\activate
 ```
-Install dependency:
+### Install dependency:
 ```
 pip3 install -r requirements.txt
 ```
