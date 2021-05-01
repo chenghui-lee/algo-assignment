@@ -2,5 +2,4 @@ nltk
 newspaper3k
 numpy
 pandas
-os
 plotly
