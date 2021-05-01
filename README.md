@@ -16,6 +16,12 @@ pip3 install virtualenv
 python -m virtualenv venv
 venv\Scripts\activate.bat
 ```
+### (Optional) To deactivate and remove virtual environment (i.e. After this course):
+```
+deactivate
+rmdir venv /s
+```
+
 ### Install dependency:
 ```
 pip3 install -r requirements.txt
