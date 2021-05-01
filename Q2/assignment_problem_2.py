@@ -62,7 +62,6 @@ pl1 = Article(url)
 
 pl1.download()
 pl1.parse()
-nltk.download('punkt')
 pl1.nlp()
 
 pl1.text
@@ -73,7 +72,6 @@ pl2 = Article(url)
 
 pl2.download()
 pl2.parse()
-nltk.download('punkt')
 pl2.nlp()
 
 pl2.text
@@ -84,7 +82,6 @@ pl3 = Article(url)
 
 pl3.download()
 pl3.parse()
-nltk.download('punkt')
 pl3.nlp()
 
 pl3.text
@@ -102,7 +99,6 @@ gd1 = Article(url)
 
 gd1.download()
 gd1.parse()
-nltk.download('punkt')
 gd1.nlp()
 
 gd1.text
@@ -113,7 +109,6 @@ gd2 = Article(url)
 
 gd2.download()
 gd2.parse()
-nltk.download('punkt')
 gd2.nlp()
 
 gd2.text
@@ -124,7 +119,6 @@ gd3 = Article(url)
 
 gd3.download()
 gd3.parse()
-nltk.download('punkt')
 gd3.nlp()
 
 """### DHL"""
@@ -135,7 +129,6 @@ dhl1 = Article(url)
 
 dhl1.download()
 dhl1.parse()
-nltk.download('punkt')
 dhl1.nlp()
 
 dhl1.text
@@ -167,7 +160,6 @@ cle1 = Article(url)
 
 cle1.download()
 cle1.parse()
-cle1.download('punkt')
 cle1.nlp()
 
 cle1.text
