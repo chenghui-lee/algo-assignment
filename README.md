@@ -1,7 +1,7 @@
 # WIX2005 algo-assignment
 
 ## Preparation
-Install latest version of Python 3 at https://www.python.org/downloads/
+Install latest version of Python 3 at https://www.python.org/downloads/ and Git at https://git-scm.com/download/win
 
 To clone this repository:
 ```
