@@ -13,8 +13,8 @@ cd algo-assignment/
 ### (Optional, but recommended) Create new virtual enviroment:
 ```
 pip3 install virtualenv
-python -m virtualenv newEnvName
-newEnvName\Scripts\activate
+python -m virtualenv venv
+venv\Scripts\activate.bat
 ```
 ### Install dependency:
 ```
