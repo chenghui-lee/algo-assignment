@@ -10,13 +10,13 @@ cd algo-assignment/
 ```
 (Optional, but recommended) Create new virtual enviroment:
 ```
-pip install virtualenv
+pip3 install virtualenv
 python -m virtualenv newEnvName
 newEnvName\Scripts\activate
 ```
 Install dependency:
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Commit
