@@ -5,6 +5,7 @@ import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import nltk # nlp
+import re
 import plotly.express as px
 from newspaper import Article # webscrap
 
@@ -51,8 +52,6 @@ class trie:
         length = len(string)
         for idx in range(length):
             i = ord(string[idx])
-            if i == 8217:
-                print(string)
             if ptr.children[i] is not None:
                 ptr = ptr.children[i]
             else:
@@ -276,17 +275,47 @@ return an array of size 5 containing stop words count for each company
 def findAndDeleteStopWords():
     stopwords_trie = trie()
     delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
-    stopwords_count = [0] * 5
+    stopwords_count = []
 
     with open("../Misc/stopwords.txt") as file_in:
         for word in file_in:
-            stopwords_trie.insert(word)
+            stopwords_trie.insert(word.strip())
 
-    for i in range(len(delivery_list)):
-        with open("../News/" + delivery_list[i]) as f:
-            for lines in f:
-                print(lines)
+    for idx in range(len(delivery_list)):
+        list_ = []
+        stopwords = 0
 
+        # Open the article file
+        with open("../News/" + delivery_list[idx], encoding='utf-8') as f:
+                list_ = f.readlines()
+
+        # Remove unnecessary new lines
+        for i in range(len(list_)):
+            list_[i] = list_[i].strip()
+            list_[i] = re.sub("[^a-zA-Z0-9\s]+", "", list_[i])
+        list_ = list(filter(None, list_))
+
+        # Count, find and delete stopwords
+        for i in range(len(list_)):
+            temp_str = ""
+            temp_arr = list_[i].split(sep=' ')
+            for word in temp_arr:
+                if stopwords_trie.search(word):
+                    stopwords += 1
+                else:
+                    temp_str += word + " "
+            temp_str = temp_str.rstrip()
+            list_[i] = temp_str
+
+        # add the stopword count to the result array
+        stopwords_count.append(stopwords)
+
+        # Write the cleaned version to text file
+        with open("../News/Cleaned/" + delivery_list[idx], "w", encoding='utf-8') as f:
+            for line in list_:
+                f.write("%s\n" % line)
+
+    return stopwords_count
 
 """ 
 Positive and negative words
@@ -321,15 +350,16 @@ for line in neg_list:
 Plot graph
 """
 
-# word = ['Word', 'Happy', 'Stupid','Sad', 'Fuck']
-# wordCount = ['Word Count',10,5,20,30 ]
-#
-# np.savetxt('stopword.csv', [p for p in zip(word, wordCount)], delimiter=',', fmt='%s')
-#
-# df = pd.read_csv('stopword.csv')
-# print(df.head())
-#
-# fig = px.line(df, x = 'Word', y = 'Word Count', title='Apple Share Prices over time (2014)')
-# fig.show()
+word = ['Word', 'Happy', 'Stupid','Sad', 'Fuck']
+wordCount = ['Word Count',10,5,20,30 ]
 
-webscrap()
+np.savetxt('stopword.csv', [p for p in zip(word, wordCount)], delimiter=',', fmt='%s')
+
+df = pd.read_csv('stopword.csv')
+print(df.head())
+
+fig = px.line(df, x = 'Word', y = 'Word Count', title='Apple Share Prices over time (2014)')
+fig.show()
+
+stopwords_count = findAndDeleteStopWords()
+print("Count of stopwords in articles for each delivery company", stopwords_count)
