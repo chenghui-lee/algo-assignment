@@ -10,7 +10,7 @@ You may use any python IDE to run, I recommend VS Code and PyCharm.
 git clone git@github.com:chenghui-lee/algo-assignment.git
 cd algo-assignment/
 ```
-### (Optional, but recommended) Create new virtual enviroment:
+### (Optional) Create new virtual enviroment:
 ```
 pip3 install virtualenv
 python -m virtualenv venv
