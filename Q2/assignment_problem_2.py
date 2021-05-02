@@ -253,22 +253,26 @@ def webscrap():
     dhl_text = dhl1.text + dhl2.text + dhl3.text
 
     """ Save to text file """
-    text_file = open("News/cle_text.txt", "w")
+    text_file = open("../News/cle_text.txt", "w", encoding='utf-8')
     text_file.write(cle_text)
     text_file.close()
-    text_file = open("News/pl_text.txt", "w")
+    text_file = open("../News/pl_text.txt", "w", encoding='utf-8')
     text_file.write(pl_text)
     text_file.close()
-    text_file = open("News/gd_text.txt", "w")
+    text_file = open("../News/gd_text.txt", "w", encoding='utf-8')
     text_file.write(gd_text)
     text_file.close()
-    text_file = open("News/jt_text.txt", "w")
+    text_file = open("../News/jt_text.txt", "w", encoding='utf-8')
     text_file.write(jt_text)
     text_file.close()
-    text_file = open("News/dhl_text.txt", "w")
+    text_file = open("../News/dhl_text.txt", "w", encoding='utf-8')
     text_file.write(dhl_text)
     text_file.close()
 
+"""
+findAndDeleteStopWords find and delete stop words in articles, 
+return an array of size 5 containing stop words count for each company 
+"""
 def findAndDeleteStopWords():
     stopwords_trie = trie()
     delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
@@ -280,7 +284,8 @@ def findAndDeleteStopWords():
 
     for i in range(len(delivery_list)):
         with open("../News/" + delivery_list[i]) as f:
-            lines = f.readlines()
+            for lines in f:
+                print(lines)
 
 
 """ 
@@ -316,14 +321,15 @@ for line in neg_list:
 Plot graph
 """
 
-word = ['Word', 'Happy', 'Stupid','Sad', 'Fuck']
-wordCount = ['Word Count',10,5,20,30 ]
+# word = ['Word', 'Happy', 'Stupid','Sad', 'Fuck']
+# wordCount = ['Word Count',10,5,20,30 ]
+#
+# np.savetxt('stopword.csv', [p for p in zip(word, wordCount)], delimiter=',', fmt='%s')
+#
+# df = pd.read_csv('stopword.csv')
+# print(df.head())
+#
+# fig = px.line(df, x = 'Word', y = 'Word Count', title='Apple Share Prices over time (2014)')
+# fig.show()
 
-np.savetxt('stopword.csv', [p for p in zip(word, wordCount)], delimiter=',', fmt='%s')
-
-df = pd.read_csv('stopword.csv')
-print(df.head())
-
-fig = px.line(df, x = 'Word', y = 'Word Count', title='Apple Share Prices over time (2014)')
-fig.show()
-
+webscrap()
