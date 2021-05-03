@@ -1,7 +1,7 @@
 import googlemaps
 import json
 
-# gmaps = googlemaps.Client(key='AIzaSyAVVnomYZhH6Z8zvfckBg3l_iHuujD1aqc')
+gmaps = googlemaps.Client(key='AIzaSyAVVnomYZhH6Z8zvfckBg3l_iHuujD1aqc')
 
 hubLocation = [["City-link Express", "Port Klang", (3.0319924887507144, 101.37344116244806)],
                ["Pos Laju", "Petaling Jaya", (3.112924170027219, 101.63982650389863)],
@@ -27,4 +27,4 @@ for i in range(0, len(hubLocation) - 1):
                                                                                   mode="driving")['rows'][0]['elements'][0]['distance']['value']
 
 
-print(distance_res, file=open("output.txt", "a"))
+print(distance_res, file=open("q3_output.txt", "a"))
