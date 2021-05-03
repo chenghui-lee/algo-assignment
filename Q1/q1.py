@@ -17,7 +17,6 @@ To-do list
 
 import pandas as pd
 from geopy import Nominatim
-from geopy.distance import great_circle
 import gmplot
 
 
@@ -71,20 +70,3 @@ gmap.marker(3.2127230893650065, 101.57467295692778)
 
 gmap.draw('map.html')
 
-"""# Question 2"""
-
-lst = [['Rawang', 3.3615395462207878, 101.56318183511695, 'Bukit Jelutong', 3.1000170516638885, 101.53071480907951],
-       ['Subang Jaya', 3.049398375759954, 101.58546611160301, 'Puncak Alam', 3.227994355250716, 101.42730357605375],
-       ['Ampang', 3.141855957281073, 101.76158583424586, 'Cyberjaya', 2.9188704151716256, 101.65251821655471]]
-
-ori_1 = (3.3615395462207878, 101.56318183511695)
-des_1 = (3.1000170516638885, 101.53071480907951)
-print(great_circle(ori_1, des_1).km)
-
-ori_1 = (3.049398375759954, 101.58546611160301)
-des_1 = (3.227994355250716, 101.42730357605375)
-print(great_circle(ori_1, des_1).km)
-
-ori_1 = (3.141855957281073, 101.76158583424586)
-des_1 = (2.9188704151716256, 101.65251821655471)
-print(great_circle(ori_1, des_1).km)
