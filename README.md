@@ -28,7 +28,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Commit
-You can open a new branch and pull request when commiting changes.
+You can open a new branch and pull request when commiting changes. Please **Do Not** push to main branch directly.
 ```
 git branch branchName
 git checkout branchName
