@@ -8,6 +8,7 @@ import nltk # nlp
 import re
 import plotly.express as px
 from newspaper import Article # webscrap
+import plotly.graph_objects as go
 
 Company_List = ['City-Link','Pos Laju','GDex','J&T',"DHL"]
 delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
@@ -450,6 +451,20 @@ df = pd.read_csv('stopword_company.csv')
 print(df.head())
 
 fig = px.histogram(df, x = 'Company', y = 'Stop Word Count', title='Stop Word Count / Company')
+fig.show()
+
+print(countWordTypes())
+#Histogram of positive word and negative word count of each courier company
+
+couriers=['City-Link', 'Pos Laju', 'Gdex', 'J&T', 'DHL']
+data=[
+    go.Bar(name='Positive', x=couriers, y=[len(countWordTypes()[0][0]),len(countWordTypes()[1][0]), len(countWordTypes()[2][0]), len(countWordTypes()[3][0]), len(countWordTypes()[4][0])]),
+    go.Bar(name='Negative', x=couriers, y=[len(countWordTypes()[0][1]), len(countWordTypes()[1][1]), len(countWordTypes()[2][1]), len(countWordTypes()[3][1]), len(countWordTypes()[4][1])])
+]
+fig = go.Figure(data)
+# Change the bar mode
+fig.update_layout(barmode='group', title = "Positive and Negative Word Count of each courier company",  xaxis_title="Courier Company",
+    yaxis_title="Word Count")
 fig.show()
 
 # stopwords_count = findAndDeleteStopWords()
