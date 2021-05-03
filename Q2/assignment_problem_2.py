@@ -436,20 +436,21 @@ def countWordTypes():
     return res
 
 """
-Plot graph
+Histogram of Count of Stop Word against Company
 """
 
-word = ['Word', 'Happy', 'Stupid','Sad', 'Fuck']
-wordCount = ['Word Count',10,5,20,30 ]
+company = ['Company', 'City-Link', 'Pos Laju','GDex', 'J&T', 'DHL']
+wordCount = ['Stop Word Count']
+wordCount.extend(findAndDeleteStopWords())
 
-np.savetxt('stopword.csv', [p for p in zip(word, wordCount)], delimiter=',', fmt='%s')
+np.savetxt('stopword_company.csv', [p for p in zip(company, wordCount)], delimiter=',', fmt='%s')
 
-df = pd.read_csv('stopword.csv')
+df = pd.read_csv('stopword_company.csv')
 print(df.head())
 
-fig = px.line(df, x = 'Word', y = 'Word Count', title='Apple Share Prices over time (2014)')
+fig = px.histogram(df, x = 'Company', y = 'Stop Word Count', title='Stop Word Count / Company')
 fig.show()
 
-stopwords_count = findAndDeleteStopWords()
-print("Count of stopwords in articles for each delivery company", stopwords_count)
-print(countWordTypes())
+# stopwords_count = findAndDeleteStopWords()
+# print("Count of stopwords in articles for each delivery company", stopwords_count)
+# print(countWordTypes())
