@@ -10,7 +10,7 @@ import plotly.express as px
 from newspaper import Article # webscrap
 import plotly.graph_objects as go
 
-Company_List = ['City-Link','Pos Laju','GDex','J&T',"DHL"]
+company_list = ['City-Link','Pos Laju','GDex','J&T',"DHL"]
 delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
 
 class Node:
@@ -361,6 +361,7 @@ def countWordTypes():
     pos_list = [x.lower().split(sep=',  ') for x in pos]
     for line in pos_list:
         for word in line:
+            word = re.sub("[^a-zA-Z0-9\s]+", "", word)
             positive_trie.insert(word)
 
 
@@ -393,13 +394,14 @@ def countWordTypes():
     # extract each word
     neg_list = [x.lower().split(sep=',    ') for x in neg]
     for line in neg_list:
-        for w in line:
+        for word in line:
+            word = re.sub("[^a-zA-Z0-9\s]+", "", word)
             negative_trie.insert(word)
 
     res = [] # contains array of 3 dictionary [[pos,neg,neu], [pos,neg,neu]... ]
     for idx in range(len(delivery_list)):
         list_ = []
-        positive = negative = neutral = {}
+        positive, negative, neutral = {},{},{}
 
         # Open the article file
         with open("../News/Cleaned/" + delivery_list[idx], encoding='utf-8') as f:
@@ -453,7 +455,6 @@ print(df.head())
 fig = px.histogram(df, x = 'Company', y = 'Stop Word Count', title='Stop Word Count / Company')
 fig.show()
 
-print(countWordTypes())
 #Histogram of positive word and negative word count of each courier company
 
 couriers=['City-Link', 'Pos Laju', 'Gdex', 'J&T', 'DHL']
@@ -467,9 +468,6 @@ fig.update_layout(barmode='group', title = "Positive and Negative Word Count of 
     yaxis_title="Word Count")
 fig.show()
 
-# stopwords_count = findAndDeleteStopWords()
-# print("Count of stopwords in articles for each delivery company", stopwords_count)
-# print(countWordTypes())
 
 """
 To Sort Company According to Ranking/Reputation
@@ -481,7 +479,7 @@ for idx in range(0,5):
 
 company_to_score = {}
 for i in range(len(company_Reputation)):
-    company_to_score[Company_List[i]] = company_Reputation[i]
+    company_to_score[company_list[i]] = company_Reputation[i]
 company_to_score = {k: v for k, v in sorted(company_to_score.items(), key=lambda item: item[1], reverse=True)}
 
 print('Company Ranking: ',end='')
