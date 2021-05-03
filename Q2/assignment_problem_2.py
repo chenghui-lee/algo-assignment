@@ -9,6 +9,7 @@ import re
 import plotly.express as px
 from newspaper import Article # webscrap
 
+Company_List = ['City-Link','Pos Laju','GDex','J&T',"DHL"]
 delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
 
 class Node:
@@ -454,3 +455,20 @@ fig.show()
 # stopwords_count = findAndDeleteStopWords()
 # print("Count of stopwords in articles for each delivery company", stopwords_count)
 # print(countWordTypes())
+
+"""
+To Sort Company According to Ranking/Reputation
+"""
+company_PNN_List = countWordTypes()
+company_Reputation = []
+for idx in range(0,5):
+    company_Reputation.append(len(company_PNN_List[idx][0]) - 2*len(company_PNN_List[idx][1]))
+
+company_to_score = {}
+for i in range(len(company_Reputation)):
+    company_to_score[Company_List[i]] = company_Reputation[i]
+company_to_score = {k: v for k, v in sorted(company_to_score.items(), key=lambda item: item[1], reverse=True)}
+
+print('Company Ranking: ',end='')
+for k, v in company_to_score.items():
+    print(k, end="->")
