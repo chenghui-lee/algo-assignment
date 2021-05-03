@@ -17,8 +17,8 @@ ori_3 = (3.141855957281073, 101.76158583424586)
 des_3 = (2.9188704151716256, 101.65251821655471)
 print(great_circle(ori_3, des_3).km, 'km')
 
-# Google Distance Matrix API
+# calculate distance using Google Distance Matrix API
 # gmaps = googlemaps.Client(key='AIzaSyAVVnomYZhH6Z8zvfckBg3l_iHuujD1aqc')
-# distance_result = gmaps.distance_matrix(origins=ori_1, destinations=des_1, mode="driving")
-# distance_result = gmaps.distance_matrix(origins=ori_2, destinations=des_2, mode="driving")
-# distance_result = gmaps.distance_matrix(origins=ori_3, destinations=des_3, mode="driving")
+distance_result = gmaps.distance_matrix(origins=ori_1, destinations=des_1, mode="driving")
+distance_result = gmaps.distance_matrix(origins=ori_2, destinations=des_2, mode="driving")
+distance_result = gmaps.distance_matrix(origins=ori_3, destinations=des_3, mode="driving")
