@@ -6,6 +6,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import nltk # nlp
 import re
+import plotly.graph_objects as go
 import plotly.express as px
 from newspaper import Article # webscrap
 
@@ -439,17 +440,27 @@ def countWordTypes():
 """
 Histogram of Count of Stop Word against Company
 """
-
+company_PNN_List = countWordTypes() # this also used for the next section below
 company = ['Company', 'City-Link', 'Pos Laju','GDex', 'J&T', 'DHL']
 wordCount = ['Stop Word Count']
+totalCount = ['Total Word Count']
 wordCount.extend(findAndDeleteStopWords())
+for idx in range (0,5):
+    totalCount.append(len(company_PNN_List[idx][0])+len(company_PNN_List[idx][1])+len(company_PNN_List[idx][2]))
 
-np.savetxt('stopword_company.csv', [p for p in zip(company, wordCount)], delimiter=',', fmt='%s')
+np.savetxt('stopword_company.csv', [p for p in zip(company, wordCount, totalCount)], delimiter=',', fmt='%s')
 
 df = pd.read_csv('stopword_company.csv')
 print(df.head())
 
-fig = px.histogram(df, x = 'Company', y = 'Stop Word Count', title='Stop Word Count / Company')
+wordCount.pop(0)
+totalCount.pop(0)
+fig = go.Figure(data=[
+    go.Bar(name='Stop Word Count', x=Company_List, y=wordCount),
+    go.Bar(name='Total Word Count', x=Company_List, y=totalCount)
+])
+# Change the bar mode
+fig.update_layout(barmode='group')
 fig.show()
 
 # stopwords_count = findAndDeleteStopWords()
@@ -459,7 +470,6 @@ fig.show()
 """
 To Sort Company According to Ranking/Reputation
 """
-company_PNN_List = countWordTypes()
 company_Reputation = []
 for idx in range(0,5):
     company_Reputation.append(len(company_PNN_List[idx][0]) - 2*len(company_PNN_List[idx][1]))
