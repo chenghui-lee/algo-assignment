@@ -443,37 +443,45 @@ def countWordTypes():
 """
 Histogram of Count of Stop Word against Company
 """
-company_PNN_List = countWordTypes() # this also used for the next section below
+company_PNN_List = countWordTypes() # array of size 5, each element is a list of 3 dictionary, storing positive, negative, and neutral words-frequency
 company = ['Company', 'City-Link', 'Pos Laju','GDex', 'J&T', 'DHL']
 wordCount = ['Stop Word Count']
 totalCount = ['Total Word Count']
 wordCount.extend(findAndDeleteStopWords())
-for idx in range (0,5):
-    totalCount.append(len(company_PNN_List[idx][0])+len(company_PNN_List[idx][1])+len(company_PNN_List[idx][2]))
 
+# Calculate the total word count for all of the companies
+for idx in range (0,5):
+    totalCount.append(len(company_PNN_List[idx][0])+len(company_PNN_List[idx][1])+len(company_PNN_List[idx][2]) + wordCount[idx+1])
+
+# Save the result into a csv file
 np.savetxt('stopword_company.csv', [p for p in zip(company, wordCount, totalCount)], delimiter=',', fmt='%s')
 
+# Print out the result
 df = pd.read_csv('stopword_company.csv')
 print(df.head())
 
+# Remove the element 'Company' from the array
 wordCount.pop(0)
 totalCount.pop(0)
+
+# Display the chart
 fig = go.Figure(data=[
     go.Bar(name='Stop Word Count', x=company_list, y=wordCount),
     go.Bar(name='Total Word Count', x=company_list, y=totalCount)
 ])
+
 # Change the bar mode
 fig.update_layout(barmode='group')
 fig.show()
 
 #Histogram of positive word and negative word count of each courier company
-
 couriers=['City-Link', 'Pos Laju', 'Gdex', 'J&T', 'DHL']
 data=[
     go.Bar(name='Positive', x=couriers, y=[len(countWordTypes()[0][0]),len(countWordTypes()[1][0]), len(countWordTypes()[2][0]), len(countWordTypes()[3][0]), len(countWordTypes()[4][0])]),
     go.Bar(name='Negative', x=couriers, y=[len(countWordTypes()[0][1]), len(countWordTypes()[1][1]), len(countWordTypes()[2][1]), len(countWordTypes()[3][1]), len(countWordTypes()[4][1])])
 ]
 fig = go.Figure(data)
+
 # Change the bar mode
 fig.update_layout(barmode='group', title = "Positive and Negative Word Count of each courier company",  xaxis_title="Courier Company",
     yaxis_title="Word Count")
