@@ -459,8 +459,8 @@ print(df.head())
 wordCount.pop(0)
 totalCount.pop(0)
 fig = go.Figure(data=[
-    go.Bar(name='Stop Word Count', x=company, y=wordCount),
-    go.Bar(name='Total Word Count', x=company, y=totalCount)
+    go.Bar(name='Stop Word Count', x=company_list, y=wordCount),
+    go.Bar(name='Total Word Count', x=company_list, y=totalCount)
 ])
 # Change the bar mode
 fig.update_layout(barmode='group')
