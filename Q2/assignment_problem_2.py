@@ -448,8 +448,9 @@ company = ['Company', 'City-Link', 'Pos Laju','GDex', 'J&T', 'DHL']
 wordCount = ['Stop Word Count']
 totalCount = ['Total Word Count']
 wordCount.extend(findAndDeleteStopWords())
+print(wordCount)
 for idx in range (0,5):
-    totalCount.append(len(company_PNN_List[idx][0])+len(company_PNN_List[idx][1])+len(company_PNN_List[idx][2]))
+    totalCount.append(len(company_PNN_List[idx][0])+len(company_PNN_List[idx][1])+len(company_PNN_List[idx][2]) + wordCount[idx+1])
 
 np.savetxt('stopword_company.csv', [p for p in zip(company, wordCount, totalCount)], delimiter=',', fmt='%s')
 
