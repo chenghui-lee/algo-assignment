@@ -471,7 +471,7 @@ fig = go.Figure(data=[
 ])
 
 # Change the bar mode
-fig.update_layout(barmode='group')
+fig.update_layout(barmode='group',title = "Stop Word and Total Word Count of each courier company",xaxis_title="Courier Company", yaxis_title="Word Count")
 fig.show()
 
 #Histogram of positive word and negative word count of each courier company
