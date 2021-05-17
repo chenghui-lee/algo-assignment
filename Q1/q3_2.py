@@ -24,11 +24,11 @@ for i in range(1, 4):
 for i in range(len(cus_distance)):
     cus_distance[i] = {k: v for k, v in sorted(cus_distance[i].items(), key=lambda item: item[1])}
 
-print(cus_distance)
+# print(cus_distance)
 
 # print result
 for i in range(1, 4):
-    print('The best choice for customer ' + str(i), 'is ', list(cus_distance[i - 1].items())[0])
+    print('The best choice for customer ' + str(i), 'based on distance is ', list(cus_distance[i - 1].items())[0])
 
 hubLocation = [["City-link Express", "Port Klang", (3.0319924887507144, 101.37344116244806)],
                ["Pos Laju", "Petaling Jaya", (3.112924170027219, 101.63982650389863)],
