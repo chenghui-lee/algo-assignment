@@ -5,7 +5,7 @@ import gmplot
 # read distionary from q3_distance.pkl
 import polyline
 
-a_file = open("q3_distance.pkl", "rb")
+a_file = open("../q3_distance.pkl", "rb")
 distance = pickle.load(a_file)
 a_file.close()
 
@@ -71,5 +71,5 @@ for i in range(0, 3):
     gmap.draw("Customer_" + str(i+1) + ".html")
 
 
-def sorted_distance():
+def get_sorted_distance():
     return cus_distance
