@@ -502,7 +502,7 @@ company_to_score = {k: v for k, v in sorted(company_to_score.items(), key=lambda
 
 print('Company Ranking: ',end='')
 for k, v in company_to_score.items():
-    print(k, end="->")
+    print(k, v, end=" -> ")
 print("")
 
 def getCompanyScore():
