@@ -11,7 +11,7 @@ import plotly.express as px
 from newspaper import Article # webscrap
 import plotly.graph_objects as go
 
-company_list = ['City-Link','Pos Laju','GDex','J&T',"DHL"]
+company_list = ['City-link Express','Pos Laju','GDEX','J&T',"DHL"]
 delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
 
 class Node:
@@ -444,7 +444,7 @@ def countWordTypes():
 Histogram of Count of Stop Word against Company
 """
 company_PNN_List = countWordTypes() # array of size 5, each element is a list of 3 dictionary, storing positive, negative, and neutral words-frequency
-company = ['Company', 'City-Link', 'Pos Laju','GDex', 'J&T', 'DHL']
+company = ['Company', 'City-link Express', 'Pos Laju','GDEX', 'J&T', 'DHL']
 wordCount = ['Stop Word Count']
 totalCount = ['Total Word Count']
 wordCount.extend(findAndDeleteStopWords())
@@ -475,7 +475,7 @@ fig.update_layout(barmode='group',title = "Stop Word and Total Word Count of eac
 fig.show()
 
 #Histogram of positive word and negative word count of each courier company
-couriers=['City-Link', 'Pos Laju', 'Gdex', 'J&T', 'DHL']
+couriers=['City-link Express', 'Pos Laju', 'GDEX', 'J&T', 'DHL']
 data=[
     go.Bar(name='Positive', x=couriers, y=[len(countWordTypes()[0][0]),len(countWordTypes()[1][0]), len(countWordTypes()[2][0]), len(countWordTypes()[3][0]), len(countWordTypes()[4][0])]),
     go.Bar(name='Negative', x=couriers, y=[len(countWordTypes()[0][1]), len(countWordTypes()[1][1]), len(countWordTypes()[2][1]), len(countWordTypes()[3][1]), len(countWordTypes()[4][1])])
@@ -503,3 +503,7 @@ company_to_score = {k: v for k, v in sorted(company_to_score.items(), key=lambda
 print('Company Ranking: ',end='')
 for k, v in company_to_score.items():
     print(k, end="->")
+print("")
+
+def getCompanyScore():
+    return company_to_score
