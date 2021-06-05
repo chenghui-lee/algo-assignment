@@ -492,7 +492,9 @@ fig.show()
 To Sort Company According to Ranking/Reputation
 """
 company_Reputation = []
+print("Company List\t\tPositive\t Negative")
 for idx in range(0,5):
+    print("{}\t{}\t\t{}".format(str(company_list[idx]).ljust(20), len(company_PNN_List[idx][0]), len(company_PNN_List[idx][1])))
     company_Reputation.append(len(company_PNN_List[idx][0]) - 2*len(company_PNN_List[idx][1]))
 
 company_to_score = {}
