@@ -477,8 +477,8 @@ fig.show()
 #Histogram of positive word and negative word count of each courier company
 couriers=['City-link Express', 'Pos Laju', 'GDEX', 'J&T', 'DHL']
 data=[
-    go.Bar(name='Positive', x=couriers, y=[len(countWordTypes()[0][0]),len(countWordTypes()[1][0]), len(countWordTypes()[2][0]), len(countWordTypes()[3][0]), len(countWordTypes()[4][0])]),
-    go.Bar(name='Negative', x=couriers, y=[len(countWordTypes()[0][1]), len(countWordTypes()[1][1]), len(countWordTypes()[2][1]), len(countWordTypes()[3][1]), len(countWordTypes()[4][1])])
+    go.Bar(name='Positive', x=couriers, y=[len(company_PNN_List[0][0]),len(company_PNN_List[1][0]), len(company_PNN_List[2][0]), len(company_PNN_List[3][0]), len(company_PNN_List[4][0])]),
+    go.Bar(name='Negative', x=couriers, y=[len(company_PNN_List[0][1]), len(company_PNN_List[1][1]), len(company_PNN_List[2][1]), len(company_PNN_List[3][1]), len(company_PNN_List[4][1])])
 ]
 fig = go.Figure(data)
 
