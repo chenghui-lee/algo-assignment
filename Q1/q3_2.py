@@ -24,7 +24,8 @@ for i in range(1, 4):
 for i in range(len(cus_distance)):
     cus_distance[i] = {k: v for k, v in sorted(cus_distance[i].items(), key=lambda item: item[1])}
 
-# print(cus_distance)
+# for i in range(len(cus_distance)):
+#     print(cus_distance[i])
 
 # print result
 for i in range(1, 4):
@@ -51,6 +52,7 @@ k = 0
 for i in range(0, 3):
     gmaps = googlemaps.Client(key=apikey)
     gmap = gmplot.GoogleMapPlotter(3.1133, 101.6116, 10, apikey=apikey)
+    # mark the origin with red marker, destination with green marker
     gmap.marker(customer[i][1][0], customer[i][1][1])
     gmap.marker(customer[i][3][0], customer[i][3][1], color="green")
     for j in range(0, 5):
@@ -63,6 +65,7 @@ for i in range(0, 3):
 
         route_2 = zip(*polyline.decode(res_2[0]['overview_polyline']['points']))
 
+        # plot the least distance route, mark the hub with yellow marker
         if hubLocation[j][0] == list(cus_distance[i - 1].items())[0][0]:
             gmap.marker(hubLocation[j][2][0], hubLocation[j][2][1], color="yellow")
             gmap.plot(*route_1, color=color[k], edge_width=7)
