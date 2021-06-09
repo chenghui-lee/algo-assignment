@@ -414,7 +414,7 @@ def countWordTypes():
             list_[i] = re.sub("[^a-zA-Z0-9\s]+", "", list_[i])
         list_ = list(filter(None, list_))
 
-        # Count, find and delete stopwords
+        # Count positive and negative words count
         for line in list_:
             for word in line.split():
                 if positive_trie.search(word):
