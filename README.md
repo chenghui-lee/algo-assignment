@@ -27,20 +27,26 @@ rmdir venv /s
 pip3 install -r requirements.txt
 ```
 
-## Commit
-You can open a new branch and pull request when commiting changes. Please **Do Not** push to main branch directly.
-```
-git branch branchName
-git checkout branchName
-{do your things}
-git add .
-git commit -m "Description about the changes you made"
-git push origin HEAD:nameOfNewBranch
-```
-Then you can head over to github to open a new pull request.
+## Usage
+In order to run this program, you must have a Google Console API key, which can be created at [here](https://console.cloud.google.com/apis/credentials).
 
-## Update your code with Github's latest code base
+Make sure to Enable the following services in Google Consolde:
+
+- Distance Matrix API
+- Geolocation API
+- Maps JavaScript API
+
+And may replace the API key in the following files:
 ```
-git checkout main
-git pull
+6-th lines in Q1/q3_1.py
+47-th lines in Q1/q3_2.py
 ```
+
+Detailed implementation and proof can be shown by running the Python files in each Problem folder respectively.
+
+For main program, you may use the following command to run.
+
+```
+python Q3/q3.py
+```
+
