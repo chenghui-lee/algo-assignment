@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
 
 # Initial setup and import the libraries
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np  # linear algebra
+import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
-import nltk # nlp
+import nltk  # nlp
 import re
 import plotly.graph_objects as go
 import plotly.express as px
-from newspaper import Article # webscrap
+from newspaper import Article  # webscrap
 import plotly.graph_objects as go
 
-company_list = ['City-link Express','Pos Laju','GDEX','J&T',"DHL"]
-delivery_list = ["cle_text.txt","pl_text.txt","gd_text.txt","jt_text.txt","dhl_text.txt"]
+company_list = ['City-link Express', 'Pos Laju', 'GDEX', 'J&T', "DHL"]
+delivery_list = ["cle_text.txt", "pl_text.txt", "gd_text.txt", "jt_text.txt", "dhl_text.txt"]
+
 
 class Node:
     def __init__(self):
         self.children = [None] * 256
         self.isend = False
+
 
 class trie:
     def __init__(self, ):
@@ -105,6 +107,8 @@ class trie:
 Webscrap function to scrap informations from 3 sites for each delivery company
 will output text file with the combined news for each delivery company
 '''
+
+
 def webscrap():
     # J&T Express (JT)
     # malay mail
@@ -116,7 +120,6 @@ def webscrap():
     nltk.download('punkt')
     jt1.nlp()
 
-
     # The star
     url = 'https://www.thestar.com.my/news/nation/2021/02/07/courier-company-says-sorry-over-039violent-sorting-of-packages039'
     jt2 = Article(url)
@@ -125,7 +128,6 @@ def webscrap():
     jt2.parse()
     jt2.nlp()
 
-
     # the rakyat post
     url = 'https://www.therakyatpost.com/2021/02/07/jt-express-protests-whats-going-on-how-to-claim-your-money-back/'
     jt3 = Article(url)
@@ -133,7 +135,6 @@ def webscrap():
     jt3.download()
     jt3.parse()
     jt3.nlp()
-
 
     # Pos Laju
     # the rakyat pos
@@ -144,7 +145,6 @@ def webscrap():
     pl1.parse()
     pl1.nlp()
 
-
     # the rakyat pos
     url = "https://www.theedgemarkets.com/article/kitchen-sinking-drags-pos-malaysia-its-largest-quarterly-net-loss"
     pl2 = Article(url)
@@ -153,7 +153,6 @@ def webscrap():
     pl2.parse()
     pl2.nlp()
 
-
     # the star
     url = "https://www.thestar.com.my/news/nation/2020/09/08/pos-malaysias-sendparcel-to-hit-record-breaking-two-million-parcels-monthly"
     pl3 = Article(url)
@@ -161,7 +160,6 @@ def webscrap():
     pl3.download()
     pl3.parse()
     pl3.nlp()
-
 
     # GDEX
     # the edge market
@@ -172,7 +170,6 @@ def webscrap():
     gd1.parse()
     gd1.nlp()
 
-
     # the star
     url = "https://www.thestar.com.my/business/business-news/2021/01/30/digitalisation-a-game-changer-for-gdex"
     gd2 = Article(url)
@@ -181,7 +178,6 @@ def webscrap():
     gd2.parse()
     gd2.nlp()
 
-
     # the edge market
     url = "https://www.theedgemarkets.com/article/gdex-partners-tasco-improve-logistics-delivery-services"
     gd3 = Article(url)
@@ -189,7 +185,6 @@ def webscrap():
     gd3.download()
     gd3.parse()
     gd3.nlp()
-
 
     # DHL
     # the rakyat pos
@@ -200,7 +195,6 @@ def webscrap():
     dhl1.parse()
     dhl1.nlp()
 
-
     # malay mail
     url = "http://malaymail.com/news/money/2021/04/08/maskargo-eyes-higher-market-share-with-new-service/1964818"
     dhl2 = Article(url)
@@ -209,7 +203,6 @@ def webscrap():
     dhl2.parse()
     dhl2.nlp()
 
-
     # The star
     url = 'https://www.thestar.com.my/business/business-news/2017/11/23/dhl-to-invest-rm1pt5b-more-in-cyberjaya-it-services-data-centre'
     dhl3 = Article(url)
@@ -217,8 +210,6 @@ def webscrap():
     dhl3.download()
     dhl3.parse()
     dhl3.nlp()
-
-
 
     # City Link Express
     # The star
@@ -229,7 +220,6 @@ def webscrap():
     cle1.parse()
     cle1.nlp()
 
-
     # malay mail
     url = "https://www.malaymail.com/news/malaysia/2020/10/26/with-109-courier-firms-in-malaysia-mcmc-suspends-new-licence-issuance-until/1916342"
     cle2 = Article(url)
@@ -238,7 +228,6 @@ def webscrap():
     cle2.parse()
     cle2.nlp()
 
-
     # auto world
     url = 'http://autoworld.com.my/news/2020/09/25/city-link-express-takes-delivery-of-277-new-isuzu-trucks/'
     cle3 = Article(url)
@@ -246,7 +235,6 @@ def webscrap():
     cle3.download()
     cle3.parse()
     cle3.nlp()
-
 
     """ Combine the text from sites for each delivery company"""
     cle_text = cle1.text + cle2.text + cle3.text
@@ -272,10 +260,13 @@ def webscrap():
     text_file.write(dhl_text)
     text_file.close()
 
+
 """
 findAndDeleteStopWords find and delete stop words in articles, 
 return an array of size 5 containing stop words count for each company 
 """
+
+
 def findAndDeleteStopWords():
     stopwords_trie = trie()
     stopwords_count = []
@@ -290,7 +281,7 @@ def findAndDeleteStopWords():
 
         # Open the article file
         with open("../News/" + delivery_list[idx], encoding='utf-8') as f:
-                list_ = f.readlines()
+            list_ = f.readlines()
 
         # Remove unnecessary new lines
         for i in range(len(list_)):
@@ -320,11 +311,14 @@ def findAndDeleteStopWords():
 
     return stopwords_count
 
+
 """ 
 countWordTypes
 Prepare the dictionary for positve and negative words
 Return an array of size 5, each element is a list of 3 dictionary, storing positive, negative, and neutral words-frequency
 """
+
+
 def countWordTypes():
     # Use trie to store all the positive and negative words
     positive_trie = trie()
@@ -365,7 +359,6 @@ def countWordTypes():
             word = re.sub("[^a-zA-Z0-9\s]+", "", word)
             positive_trie.insert(word)
 
-
     # neg is an array of string, where each string contains words starting with alphabet a - z
     neg = [
         'abnormal,    abolish,    abominable,    abominably,    abominate,    abomination,    abort,    aborted,    aborts,    abrade,    abrasive,    abrupt,    abruptly,    abscond,    absence,    absent-minded,    absentee,    absurd,    absurdity,    absurdly,    absurdness,    abuse,    abused,    abuses,    abusive,    abysmal,    abysmally,    abyss,    accidental,    accost,    accursed,    accusation,    accusations,    accuse,    accuses,    accusing,    accusingly,    acerbate,    acerbic,    acerbically,    ache,    ached,    aches,    aching,    acrid,    acridly,    acridness,    acrimonious,    acrimoniously,    acrimony,    adamant,    adamantly,    addict,    addicted,    addicting,    addicts,    admonish,    admonisher,    admonishingly,    admonishment,    admonition,    adulterate,    adulterated,    adulteration,    adversarial,    adversary,    adverse,    adversity,    afflict,    affliction,    afflictive,    affront,    afraid,    aggravate,    aggravating,    aggravation,    aggression,    aggressive,    aggressiveness,    aggressor,    aggrieve,    aggrieved,    aghast,    agonies,    agonize,    agonizing,    agonizingly,    agony,    aground,    ail,    ailing,    ailment,    aimless,    alarm,    alarmed,    alarming,    alarmingly,    alienate,    alienated,    alienation,    allegation,    allegations,    allege,    allergic,    allergies,    allergy,    aloof,    altercation,    ambiguity,    ambiguous,    ambivalence,    ambivalent,    ambush,    amiss,    amputate,    anarchism,    anarchist,    anarchistic,    anarchy,    anemic,    anger,    angrily,    angriness,    angry,    anguish,    animosity,    annihilate,    annihilation,    annoy,    annoyance,    annoyances,    annoyed,    annoying,    annoyingly,    annoys,    anomalous,    anomaly,    antagonism,    antagonist,    antagonistic,    antagonize,    anti-,    anti-occupation,    anti-proliferation,    anti-social,    anti-us,    anti-white,    antipathy,    antiquated,    antithetical,    anxieties,    anxiety,    anxious,    anxiously,    anxiousness,    apathetic,    apathetically,    apathy,    apocalypse,    apocalyptic,    apologist,    apologists,    appall,    appalled,    appalling,    appallingly,    apprehension,    apprehensions,    apprehensive,    apprehensively,    arbitrary,    arcane,    archaic,    arduous,    arduously,    argumentative,    arrogance,    arrogant,    arrogantly,    ashamed,    asinine,    asininely,    askance,    asperse,    aspersion,    aspersions,    assail,    assassin,    assassinate,    assault,    astray,    asunder,    atrocious,    atrocities,    atrocity,    atrophy,    attack,    attacks,    audacious,    audaciously,    audaciousness,    audacity,    austere,    authoritarian,    autocrat,    autocratic,    avalanche,    avarice,    avaricious,    avariciously,    avenge,    averse,    aversion,       awful,    awfully,    awfulness,    awkward,    awkwardness,    ax',
@@ -399,14 +392,14 @@ def countWordTypes():
             word = re.sub("[^a-zA-Z0-9\s]+", "", word)
             negative_trie.insert(word)
 
-    res = [] # contains array of 3 dictionary [[pos,neg,neu], [pos,neg,neu]... ]
+    res = []  # contains array of 3 dictionary [[pos,neg,neu], [pos,neg,neu]... ]
     for idx in range(len(delivery_list)):
         list_ = []
-        positive, negative, neutral = {},{},{}
+        positive, negative, neutral = {}, {}, {}
 
         # Open the article file
         with open("../News/Cleaned/" + delivery_list[idx], encoding='utf-8') as f:
-                list_ = f.readlines()
+            list_ = f.readlines()
 
         # Remove unnecessary new lines
         for i in range(len(list_)):
@@ -440,18 +433,21 @@ def countWordTypes():
             company[i] = {k: v for k, v in sorted(company[i].items(), key=lambda item: item[1], reverse=True)}
     return res
 
+
 """
 Histogram of Count of Stop Word against Company
 """
-company_PNN_List = countWordTypes() # array of size 5, each element is a list of 3 dictionary, storing positive, negative, and neutral words-frequency
-company = ['Company', 'City-link Express', 'Pos Laju','GDEX', 'J&T', 'DHL']
+company_PNN_List = countWordTypes()  # array of size 5, each element is a list of 3 dictionary, storing positive, negative, and neutral words-frequency
+company = ['Company', 'City-link Express', 'Pos Laju', 'GDEX', 'J&T', 'DHL']
 wordCount = ['Stop Word Count']
 totalCount = ['Total Word Count']
 wordCount.extend(findAndDeleteStopWords())
 
 # Calculate the total word count for all of the companies
-for idx in range (0,5):
-    totalCount.append(len(company_PNN_List[idx][0])+len(company_PNN_List[idx][1])+len(company_PNN_List[idx][2]) + wordCount[idx+1])
+for idx in range(0, 5):
+    totalCount.append(
+        len(company_PNN_List[idx][0]) + len(company_PNN_List[idx][1]) + len(company_PNN_List[idx][2]) + wordCount[
+            idx + 1])
 
 # Save the result into a csv file
 np.savetxt('stopword_company.csv', [p for p in zip(company, wordCount, totalCount)], delimiter=',', fmt='%s')
@@ -471,41 +467,49 @@ fig = go.Figure(data=[
 ])
 
 # Change the bar mode
-fig.update_layout(barmode='group',title = "Stop Word and Total Word Count of each courier company",xaxis_title="Courier Company", yaxis_title="Word Count")
+fig.update_layout(barmode='group', title="Stop Word and Total Word Count of each courier company",
+                  xaxis_title="Courier Company", yaxis_title="Word Count")
 fig.show()
 
-#Histogram of positive word and negative word count of each courier company
-couriers=['City-link Express', 'Pos Laju', 'GDEX', 'J&T', 'DHL']
-data=[
-    go.Bar(name='Positive', x=couriers, y=[len(company_PNN_List[0][0]),len(company_PNN_List[1][0]), len(company_PNN_List[2][0]), len(company_PNN_List[3][0]), len(company_PNN_List[4][0])]),
-    go.Bar(name='Negative', x=couriers, y=[len(company_PNN_List[0][1]), len(company_PNN_List[1][1]), len(company_PNN_List[2][1]), len(company_PNN_List[3][1]), len(company_PNN_List[4][1])])
+# Histogram of positive word and negative word count of each courier company
+couriers = ['City-link Express', 'Pos Laju', 'GDEX', 'J&T', 'DHL']
+data = [
+    go.Bar(name='Positive', x=couriers,
+           y=[len(company_PNN_List[0][0]), len(company_PNN_List[1][0]), len(company_PNN_List[2][0]),
+              len(company_PNN_List[3][0]), len(company_PNN_List[4][0])]),
+    go.Bar(name='Negative', x=couriers,
+           y=[len(company_PNN_List[0][1]), len(company_PNN_List[1][1]), len(company_PNN_List[2][1]),
+              len(company_PNN_List[3][1]), len(company_PNN_List[4][1])])
 ]
 fig = go.Figure(data)
 
 # Change the bar mode
-fig.update_layout(barmode='group', title = "Positive and Negative Word Count of each courier company",  xaxis_title="Courier Company",
-    yaxis_title="Word Count")
+fig.update_layout(barmode='group', title="Positive and Negative Word Count of each courier company",
+                  xaxis_title="Courier Company",
+                  yaxis_title="Word Count")
 fig.show()
-
 
 """
 To Sort Company According to Ranking/Reputation
 """
 company_Reputation = []
+print("\n")
 print("Company List\t\tPositive\t Negative")
-for idx in range(0,5):
-    print("{}\t{}\t\t{}".format(str(company_list[idx]).ljust(20), len(company_PNN_List[idx][0]), len(company_PNN_List[idx][1])))
-    company_Reputation.append(len(company_PNN_List[idx][0]) - 2*len(company_PNN_List[idx][1]))
+for idx in range(0, 5):
+    print("{}\t{}\t\t{}".format(str(company_list[idx]).ljust(20), len(company_PNN_List[idx][0]),
+                                len(company_PNN_List[idx][1])))
+    company_Reputation.append(len(company_PNN_List[idx][0]) - 2 * len(company_PNN_List[idx][1]))
 
 company_to_score = {}
 for i in range(len(company_Reputation)):
     company_to_score[company_list[i]] = company_Reputation[i]
 company_to_score = {k: v for k, v in sorted(company_to_score.items(), key=lambda item: item[1], reverse=True)}
 
-print('Company Ranking: ',end='')
+print('Company Ranking: ', end='')
 for k, v in company_to_score.items():
     print(k, v, end=" -> ")
 print("")
+
 
 def getCompanyScore():
     return company_to_score
