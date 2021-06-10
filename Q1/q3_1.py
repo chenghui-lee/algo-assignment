@@ -24,6 +24,7 @@ final_res = {}
 gmap = gmplot.GoogleMapPlotter(3.1133, 101.6116, 10, apikey=apikey)
 
 # calculate distance using Google Matrix API
+# mark the hublocation with yellow marker
 gmap.marker(3.0319924887507144, 101.37344116244806, color="yellow")
 gmap.marker(3.112924170027219, 101.63982650389863, color="yellow")
 gmap.marker(3.265154613796736, 101.68024844550233, color="yellow")
@@ -32,6 +33,7 @@ gmap.marker(3.2127230893650065, 101.57467295692778, color="yellow")
 
 
 for j in range(0, len(customer)):
+    # mark the origin with red marker, destination with green marker
     gmap.marker(customer[j][1][0], customer[j][1][1])
     gmap.marker(customer[j][3][0], customer[j][3][1], color="green")
     for i in range(0, len(hubLocation)):
